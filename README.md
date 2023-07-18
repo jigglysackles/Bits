@@ -4,5 +4,5 @@
 
 <p><em><strong>Don't put this stuff in your production environment.</strong></em></p>
 
-<p><em><strong></em>On your head be it, should you choose to use anything from the Gorbage Pile.</strong></em></p>
+<p><em><strong>On your head be it, should you choose to use anything from the Gorbage Pile.</strong></em></p>
 
