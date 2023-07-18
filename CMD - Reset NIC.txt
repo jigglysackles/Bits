@@ -1,0 +1,6 @@
+netsh interface set interface "network_adapter_name" admin=enable
+(e.g netsh interface set interface "MyEthernet" admin=enable)
+ 
+To disable NIC type, the following command:
+netsh interface set interface "network_adapter_name" admin=disable
+(e.g netsh interface set interface "MyEthernet" admin=disable)

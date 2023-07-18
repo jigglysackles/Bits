@@ -1,0 +1,14 @@
+VMWare convert thick provision to thin provision
+
+This is a production server, so the utmost care must be taken.
+So no downtime with a failsafe process ?
+Would a 15 minutes downtime be acceptable ?
+1. create additional protective snalpshot.
+2. vmkfstools -i 1tb.vmdk new-thin.vmdk -d thin
+3. 15 minutes downtime: attach snapshot to new-thin.vmdk and power on
+
+4. if all is good consolidate the chain to get rid off protective snapshot
+This is the approach I use when failure is no option.
+That converts the vmdk from thick to thin.
+If you want to do a partition resize let me know.
+

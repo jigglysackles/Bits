@@ -1,0 +1,16 @@
+CMD enable RDP
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+Windows Firewall Allow
+netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+
+CMD Add User to Remote Desktop Users Group
+NET LOCALGROUP "Remote Desktop Users" domain\username /ADD
+
+
+CMD Disable RDP
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 1 /f
+
+(Might want it to not go to sleep as well so use 
+powercfg.exe /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+to set it to High Performance profile of power config

@@ -1,0 +1,3 @@
+Windows Commands for when the GUI is gone
+
+wuauclt /detectnow - Will start windows detecting updates.

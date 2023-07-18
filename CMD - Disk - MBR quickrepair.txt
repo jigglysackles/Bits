@@ -1,0 +1,27 @@
+Generic damaged MBR and boot sector recovery instructions for NT6 and later (Vista - 10 and Server 2008 through Server 2012)
+
+Boot from your Windows installation media and select "repair my computer". Select the command prompt option.
+
+Type this command
+
+bootrec /fixboot
+
+This writes out a new boot sector.
+
+Next, rebuild the Boot Configuration Data (BCD)
+
+bootrec /rebuildbcd
+
+Next add your OS to the BCD with this command
+
+bootrec /scanos
+
+Clear out the MBR and write a new one...
+
+bootrec /fixmbr
+
+Make your fresh new boot sector something that bootmgr can understand
+
+bootsect.exe /nt60 all /force
+
+Restart your PC.

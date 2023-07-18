@@ -1,0 +1,2 @@
+netsh advFirewall Firewall add rule name="Allow ICMP IPv4" protocol=icmpv4:8,any dir=in action=allow
+netsh advFirewall Firewall add rule name="Allow ICMP IPv6" protocol=icmpv6:8,any dir=in action=allow

@@ -1,0 +1,8 @@
+WMIC computersystem where caption='current_pc_name' rename new_pc_name
+
+
+set /P newname="What is the new PC name? "
+echo "The new pc will be %newname%!!
+
+REM FOR /F "delims=" %%v IN ('hostname') DO WMIC computersystem where caption='%%v' rename 
+

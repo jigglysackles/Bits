@@ -1,0 +1,12 @@
+To enable NetLogon Logging, use the following command on a domain controller:
+
+nltest /dbflag:0x2080ffff
+
+When finished, disable NetLogon Logging with this command:
+
+nltest /dbflag:0×0
+
+
+The netlogon.log file is located in the %SystemRoot%\Debug directory of a Microsoft Windows Domain Controller.  0x2080ffff is the most verbose setting and shows detailed timestamps, the domain controller clients authenticate against, client site, information related to the DC Locator process, and account password expiration information.  Be careful when enabling NetLogon logging.  the netlogon.log file can quickly grow in the system drive.
+
+For additional information, see MS KB 109626 (Enabling Debug Logging for the Netlogon Service)

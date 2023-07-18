@@ -1,0 +1,15 @@
+fortigate CLI
+
+Move Policy 
+	config firewall policy
+	move # before/after #
+
+Ping 
+	exe ping x.x.x.x
+
+Ping from specific source
+	exe ping-options source x.x.x.x 
+	exe ping x.x.x.x
+		Be sure to revert the changes to defaults
+		exe ping-options source auto
+

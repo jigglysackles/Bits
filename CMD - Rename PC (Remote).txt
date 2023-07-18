@@ -1,0 +1,1 @@
+WMIC /node:"Joe-Laptop" /user:Admin /password:password123 computersystem call rename "Joe-Tech"

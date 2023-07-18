@@ -1,0 +1,8 @@
+@echo off
+
+echo Obtain all users from AD.
+
+mkdir c:\temp
+dsquery user -name * -limit 0 >> c:\temp\users.txt & c:\temp\users.txt
+
+REM Import the text file in excel and filter it from Data>>>>>Text to columns.

@@ -1,0 +1,1 @@
+SCHTASKS /CREATE /SC ONCE /TN "CustomTasks\SingleReboot" /TR "C:\windows\system32\shutdown.exe -f -r -t 00" /ST 04:30

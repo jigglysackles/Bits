@@ -1,0 +1,1 @@
+.\Remove-DuplicateItems.ps1 -Identity user@email.com -Server outlook.office365.com -Credentials $UserCredential -Retain Newest -DeleteMode MoveToDeletedItems -Type Mail -Mode Quick -MailboxOnly -Force -MailboxWide -PriorityFolders '#Inbox#' -Report -WhatIf

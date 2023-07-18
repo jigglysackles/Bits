@@ -1,0 +1,12 @@
+icacls %windir%\system32\config\sam
+
+ping 127.0.0.1 -n 5 >nul
+
+icacls %windir%\system32\config\*.* /inheritance:e
+
+ping 127.0.0.1 -n 5 >nul
+
+icacls %windir%\system32\config\sam
+
+ping 127.0.0.1 -n 5 >nul
+

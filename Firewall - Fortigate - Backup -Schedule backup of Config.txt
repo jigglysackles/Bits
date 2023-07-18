@@ -1,0 +1,8 @@
+config system auto-script
+edit "backup"
+set interval (secs)
+set repeat ()
+set start auto
+set script "execute backup config tftp config.txt x.x.x.x"
+next
+end 

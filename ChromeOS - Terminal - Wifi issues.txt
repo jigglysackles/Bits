@@ -1,0 +1,4 @@
+Chromebook wifi issues - Get into terminal (control alt T)
+
+sudo nmcli radio wifi off
+sudo nmcli radio wifi on

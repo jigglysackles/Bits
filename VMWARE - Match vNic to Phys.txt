@@ -1,0 +1,2 @@
+#Find nic/vnic counterparts in vmware
+Get-EsxTop -CounterName NetPort | Select PortID, ClientName, TeamUplink

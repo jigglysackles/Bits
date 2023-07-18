@@ -1,0 +1,13 @@
+@echo off
+
+REM Delete if older than 30 days
+REM "C:\Users\%username%\AppData\Local\Microsoft\Outlook\Offline Address Books"
+REM 
+
+
+$MachineNameOrIP = hostname
+$LoggedOnUser = Get-WMIObject Win32_Process -filter 'name="explorer.exe"' -computername $MachineNameOrIP |
+    ForEach-Object { $owner = $_.GetOwner(); '{0}\{1}' -f $owner.Domain, $owner.User } |
+    Sort-Object | Get-Unique
+	
+	

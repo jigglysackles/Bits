@@ -1,0 +1,12 @@
+Resetting Office activation 
+
+Open Command Prompt and navigate to the following folder 
+
+C:\Program Files (x86)\Microsoft Office\Office15 Or Office16
+C:\Program Files\Microsoft Office\Office15 Or Office16
+
+Run cscript ospp.vbs /dstatus 
+
+Observe the results and uninstall each product key 
+
+cscript ospp.vbs /unpkey:<last 5 chars of product key shown in dstatus> 

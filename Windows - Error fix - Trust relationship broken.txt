@@ -1,0 +1,26 @@
+Cleanest way to rejoin from PC
+
+Pull ethernet cable, login, then plug ethernet cable back in. 
+
+Rejoin PC to domain by opening lusrmgr.msc and creating TempAdmin account, adding to local admin group, removing from users group.
+
+Open system properties (win+pause and then click change settings) and go to change under the computer name tab. 
+
+Add to workgroup wasd or whatever
+
+click ok and go through prompts. 
+
+reboot
+
+login as TempAdmin
+
+go into system properties and join to domain. 
+
+
+
+Dirty fast way to rejoin domain - can cause issue and the error that caused this may reoccur. 
+
+Pull ethernet cable, login, then plug ethernet cable back in. 
+
+Rejoin PC to domain by opening system properties and joining wasd workgroup, then without rebooting join back to the domain. 
+

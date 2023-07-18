@@ -1,0 +1,167 @@
+Using Filtered Events for a Custom Scheduled Task Trigger On Event
+ 
+
+Example of a working Filter for identifying the Storagecraft Imagemanager service being either stopped or disabled. 
+
+<QueryList>
+  <Query Id="0" Path="System">
+    <Select Path="System">
+    *[System[Provider[@Name='Service Control Manager'] and (EventID=7036 or EventID=7040)]]
+    and
+    *[EventData[Data[@Name='param1'] and (Data='StorageCraft ImageManager')]]
+    </Select>
+  </Query>
+</QueryList>
+
+
+Most of the data to construct these filters can be found in the XML view of the event.
+
+
+
+________________________________________________
+
+
+Got instructions from this post online at the following URL. https://blogs.technet.microsoft.com/askds/2011/09/26/advanced-xml-filtering-in-the-windows-event-viewer/
+
+★★★★★
+Advanced XML filtering in the Windows Event Viewer
+★★★★★
+
+September 26, 2011 by NedPyle [MSFT] // 34 Comments	
+Hi guys, Joji Oshima here again. Today I want to talk about using Custom Views in the Windows Event Viewer to filter events more effectively. The standard GUI allows some basic filtering, but you have the ability to drill down further to get the most relevant data.
+Starting in Windows Vista/2008, you have the ability to modify the XML query used to generate Custom Views.
+Limitations of basic filtering:
+
+Basic filtering allows you to display events that meet certain criteria. You can filter by the event level, the source of the event, the Event ID, certain keywords, and the originating user/computer.
+
+    image
+    Basic Filter for Event 4663 of the security event logs
+
+You can choose multiple events that match your criteria as well.
+
+    image
+    Basic filter for Event 4660 & 4663 of the security event logs
+
+A real limitation to this type of filtering is the data inside each event can be very different. 4663 events appear when auditing users accessing objects. You can see the account of the user, and what object they were accessing.
+
+    clip_image001 clip_image002
+    Sample 4663 events for users ‘test5’ and ‘test9’
+
+If you want to see events that are only about user ‘test9’, you need a Custom View and an XML filter.
+Using XML filtering and Custom Views:
+
+Custom Views using XML filtering are a powerful way to drill through event logs and only display the information you need. With Custom Views, you can filter on data in the event. To create a Custom View based on the username, right click Custom Views in the Event Viewer and choose Create Custom View.
+
+    image
+
+Click the XML Tab, and check Edit query manually. Click ok to the warning popup. In this window, you can type an XML query. For this example, we want to filter by SubjectUserName, so the XML query is:
+
+      <QueryList>
+           <Query Id="0">
+              <Select Path="Security">
+                 *[EventData[Data[@Name=’SubjectUserName’] and (Data=’test9′)]]
+               </Select>
+           </Query>
+      </QueryList>
+
+    image
+
+After you type in your query, click the Ok button. A new window will ask for a Name & Description for the Custom View. Add a descriptive name and click the Ok button.
+
+    image
+
+You now have a Custom View for any security events that involve the user test9.
+
+    image
+
+Take It One Step Further:
+
+Now that we’ve gone over a simple example, let’s look at the query we are building and what else we can do with it. Using XML, we are building a SELECT statement to pull events that meet the criteria we specify. Using the standard AND/OR Boolean operators, we can expand upon the simple example to pull more events or to refine the list.
+
+Perhaps you want to monitor two users – test5 and test9 – for any security events. Inside the search query, we can use the Boolean OR operator to include users that have the name test5 or test9.
+
+The query below searches for any security events that include test5 or test9.
+
+      <QueryList>
+           <Query Id="0">
+              <Select Path="Security">
+                 *[EventData[Data[@Name=’SubjectUserName’] and (Data=’test5′ or Data=’test9’)]]
+               </Select>
+           </Query>
+      </QueryList>
+Event Metadata:
+
+At this point you may be asking, where did you come up with SubjectUserName and what else can I filter on? The easiest way to find this data is to find a specific event, click on the details tab, and then click the XML View radio button.
+
+    image
+
+From this window, we can see the structure of the Event’s XML metadata. This event has a <System> tag and an <EventData> tag. Each of these data names can be used in the filter and combined using standard Boolean operators.
+
+With the same view, we can examine the <System> metadata to find additional data names for filtering.
+
+    image
+
+Now let’s say we are only interested in a specific Event ID involving either of these users. We can incorporate an AND Boolean to filter on the System data.
+
+The query below looks for 4663 events for user test5 or test9.
+
+      <QueryList>
+           <Query Id="0">
+              <Select Path="Security">
+                 *[EventData[Data[@Name=’SubjectUserName’] and (Data=’test5′ or Data=’test9′)]]
+                 and
+                 *[System[(EventID=’4663′)]]
+               </Select>
+           </Query>
+      </QueryList>
+Broader Filtering:
+
+Say you wanted to filter on events involving test5 but were unsure if it would be in SubjectUserName, TargetUserName, or somewhere else. You don’t need to specify the specific name that the data can be in, but just search that some data in <EventData> contains test5.
+
+The query below looks for events that any data in <EventData> equals test5.
+
+      <QueryList>
+           <Query Id="0">
+              <Select Path="Security">
+                 *[EventData[Data and (Data=’test5′)]]
+              </Select>
+           </Query>
+      </QueryList>
+Multiple Select Statements:
+
+You can also have multiple select statements in your query to pull different data in the same log or data in another log. You can specify which log to pull from inside the <select> tag, and have multiple <select> tags in the same <query> tag.
+
+The example below will pull 4663 events from the security event log and 1704 events from the application event log.
+
+      <QueryList>
+           <Query Id="0">
+              <Select Path="Security">*[System[(EventID=’4663′)]]</Select>
+             <Select Path="Application">*[System[(EventID=’1704′)]]</Select>
+           </Query>
+      </QueryList>
+
+    image
+
+XPath 1.0 Limitations:
+
+Windows Event Log supports a subset of XPath 1.0. There are limitations to what functions work in the query. For instance, you can use the "position", "Band", and "timediff" functions within the query but other functions like "starts-with" and "contains" are not currently supported.
+Further Reading:
+
+    Create a Custom View
+    http://technet.microsoft.com/en-us/library/cc709635.aspx
+
+    Event Queries and Event XML
+    http://msdn.microsoft.com/en-us/library/bb399427(v=VS.90).aspx
+
+    Consuming Events (Windows)
+    http://msdn.microsoft.com/en-us/library/dd996910(VS.85).aspx
+
+Conclusion:
+
+Using Custom Views in the Windows Event Log can be a powerful tool to quickly access relevant information on your system. XPath 1.0 has a learning curve but once you get a handle on the syntax, you will be able to write targeted Custom Views.
+
+Joji "the sieve" Oshima
+
+[Check out pseventlogwatcher if you want to combine complex filters with monitoring and automation. It’s made by AskDS superfan Steve Grinker: http://pseventlogwatcher.codeplex.com/ – Neditor]
+
+

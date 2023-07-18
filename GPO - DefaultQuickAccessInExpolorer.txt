@@ -1,0 +1,15 @@
+GPO: CC\Preferences\Windows Settings\Registry
+
+Folder Options - General - Open File Explorer to:  Quick Access or My PC
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\LaunchTo =1
+DWORD - makes it view MY PC instead of QA
+
+
+Folder Options - General - Privacy - Show recently used files in Quick access
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShowRecent = 0
+DWORD - check box is empty
+
+
+Folder Options - General - Privacy - Show frequently used files in Quick access
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShowFrequent = 0
+DWORD - check box is empty

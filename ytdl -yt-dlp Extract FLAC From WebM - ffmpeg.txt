@@ -1,0 +1,14 @@
+Get all formats available
+	yt-dlp -F https://youtubelinkhere
+
+
+
+Quick DL Options
+	Download 720pvideo.mp4 with audio
+		yt-dlp -f 22 https://youtubelinkhere
+
+	Download Highest Quality Audio Only (Opus buried in a webm)
+		yt-dlp -f 251 https://youtubelinkhere
+
+	Convert that Audio into FLAC
+		ffmpeg -i "C:\DirectoryOfDownloadedAudio\AudioTitle.webm" -vn "C:\NewOrSameDirectoryofAudio\NewAudioTitle.flac"

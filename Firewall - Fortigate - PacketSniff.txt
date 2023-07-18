@@ -1,0 +1,15 @@
+diag sniffer packet "interfacenamehere" none "debug level" "# of packets"
+diag sniffer packet VLAN62 none 6 10
+diag sniffer packet wan1 none 4 100
+
+
+interface name is case sensitive
+
+capture output with putty to file and convert file with fgt provided perl script to read in wireshark 
+fgt2eth.pl -in packet_capture.txt -out packet_capture.pcap
+
+https://help.fortinet.com/fa/cli-olh/5-6-2/Document/1600_diagnose/sniffer.htm
+
+https://kb.fortinet.com/kb/microsites/search.do?cmd=displayKC&docType=kc&externalId=11186&sliceId=1&docTypeID=DT_KCARTICLE_1_1&dialogID=2305297&stateId=0%200%202307258
+
+http://strawberryperl.com/

@@ -1,0 +1,6 @@
+conf sys int
+edit port1
+set mtu-over ena
+set mtu 9000
+next
+end

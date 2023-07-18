@@ -1,0 +1,33 @@
+Auto map network drives on login for all users
+
+    Save the following batch file to the domain controller's NETLOGON share as logon.bat:
+
+    @echo off
+    net use * /delete /yes
+    net use x: \\server_name\shared_directory_name
+
+    Active Directory Users and Computers
+    Right click domain name at top left and click Properties > Group Policy > Edit > User Configuration > Windows Settings > Scripts (Logon/Logoff) > Logon > Add...
+    Enter path to logon.bat (e.g., \\ACME.local\sysvol\ACME.local\scripts\logon.bat) and click OK three times
+    Login from workstation. Drive x: should appear in My Computer.
+
+Auto map network drives on login for certain users:
+
+    Save the following batch file to the domain controller's NETLOGON share as logon.bat:
+
+    @echo off
+    net use * /delete /yes
+    net use x: \\file_server_name\shared_directory_name
+
+    Active Directory Users and Computers > Users > Double click user > Profile
+    Enter "logon.bat" (no quotes) in the "Logon script" box and click OK
+    Login from workstation as user modified in step 2. Drive x: should appear in My Computer.
+
+
+run powershell scripts from a .bat file, and the script is
+
+New-PSDrive -Name "P" -PSProvider "FileSystem" -Root "\\Server01\Public"
+
+add -persist at the end, you will create a persisted mapped network drive
+
+New-PSDrive -Name "P" -PSProvider "FileSystem" -Root "\\Server01\Scripts" -Persist

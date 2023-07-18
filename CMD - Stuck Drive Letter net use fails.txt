@@ -1,0 +1,10 @@
+
+
+mountvol command can delete these stuck drive letters.
+
+mountvol <Drive Letter>: /d
+
+Example:
+
+mountvol E: /d
+

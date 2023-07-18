@@ -1,0 +1,2 @@
+$gpos = get-gpo -all 
+foreach ($gpo in $gpos) { Set-GPPermissions -Name $gpo.DisplayName -PermissionLevel GpoRead -TargetName "Domain Computers" -TargetType Group }

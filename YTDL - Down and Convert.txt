@@ -1,0 +1,72 @@
+install of ytdl
+
+Check Format options
+ytdl -F YouTubeURLHere
+
+This should give a list of format options similar to the following.
+
+format code  extension  resolution note
+249          webm       audio only tiny   50k , webm_dash container, opus @ 50k (48000Hz), 1.21MiB
+250          webm       audio only tiny   67k , webm_dash container, opus @ 67k (48000Hz), 1.61MiB
+140          m4a        audio only tiny  129k , m4a_dash container, mp4a.40.2@129k (44100Hz), 3.11MiB
+251          webm       audio only tiny  133k , webm_dash container, opus @133k (48000Hz), 3.20MiB
+278          webm       144x144    144p   19k , webm_dash container, vp9@  19k, 25fps, video only, 473.12KiB
+160          mp4        144x144    144p   30k , mp4_dash container, avc1.4d400b@  30k, 25fps, video only, 756.08KiB
+242          webm       240x240    240p   38k , webm_dash container, vp9@  38k, 25fps, video only, 937.13KiB
+133          mp4        240x240    240p   72k , mp4_dash container, avc1.4d400c@  72k, 25fps, video only, 1.73MiB
+134          mp4        360x360    360p   38k , mp4_dash container, avc1.4d4015@  38k, 25fps, video only, 933.65KiB
+243          webm       360x360    360p   65k , webm_dash container, vp9@  65k, 25fps, video only, 1.57MiB
+135          mp4        480x480    480p   72k , mp4_dash container, avc1.4d401e@  72k, 25fps, video only, 1.74MiB
+244          webm       480x480    480p  119k , webm_dash container, vp9@ 119k, 25fps, video only, 2.86MiB
+136          mp4        720x720    720p  149k , mp4_dash container, avc1.4d401f@ 149k, 25fps, video only, 3.59MiB
+247          webm       720x720    720p  246k , webm_dash container, vp9@ 246k, 25fps, video only, 5.91MiB
+137          mp4        1080x1080  1080p  299k , mp4_dash container, avc1.640020@ 299k, 25fps, video only, 7.18MiB
+248          webm       1080x1080  1080p  428k , webm_dash container, vp9@ 428k, 25fps, video only, 10.26MiB
+18           mp4        360x360    360p  221k , avc1.42001E, 25fps, mp4a.40.2 (44100Hz), 5.31MiB (best)
+
+Once the desired format is decided on use the lowercase f instead of capital followed by the format code
+ytdl -f ### YouTubeURLHere
+
+dl playlists
+ytdl.exe -ciw YTPlaylistURLhere
+
+
+If the desired option is wrapped in a stupid webm container use the following procedures
+
+Extract opus from webm with ffmpeg
+ffmpeg -i "WhateverContainedAudio.webm" -vn -c:a copy "FileNameHere".ogg
+alternate
+ffmpeg -i "input.webm" -vn -acodec copy "output.oga"
+
+
+Extract opus with MKVToolNix
+mkvextract.exe "file.webm" tracks 0:"file_audio.ogg"
+(assuming audio track ID is 0 - you can check with mkvinfo.exe or mkvtoolnix-gui.exe)
+
+
+
+
+
+
+
+
+Details on extraction of ogg 
+.webm files indeed can contain vorbis audio, but it can also contain opus audio. Also an ogg file can contain both audio formats. One can transfer the audio without conversion to an .ogg file:
+
+ffmpeg -i "$INPUTFILE" -vn -c:a copy "$(basename "$INPUTFILE" .webm)".ogg
+If you need vorbis audio in an ogg container, but your .webm contains opus audio, then you need to transcode obviously.
+
+In oggenc, a -q 6 setting will result in a file with variable bitrate at about 192 kbps. This is a setting where quality loss mostly will not be perceived anymore ("transparent"), and is a setting optimal to achieve excellent quality at a minimum file size. In ffmpeg, the corresponding option is -qscale:a 6:
+
+ffmpeg -i "$INPUTFILE" -vn -c:a libvorbis -qscale:a 6 "$(basename "$INPUTFILE" .webm)".ogg
+The range is -1 to 10, where 10 is very high quality.The default is -qscale:a 3, which corresponds to an average bitrate of about 112.
+
+
+
+
+
+
+
+
+
+

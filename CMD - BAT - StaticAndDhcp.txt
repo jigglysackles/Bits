@@ -1,0 +1,25 @@
+@echo off
+
+echo Setting static IP address...
+netsh interface ipv4 set address name="Ethernet" static 192.168.1.90 255.255.255.0
+
+echo Disabling DHCP...
+netsh interface ipv4 set address name="Ethernet" dhcp=none
+
+echo IP address set to 192.168.1.90
+echo Press any key to continue...
+
+pause > nul
+
+echo Holding static IP for 30 minutes...
+timeout /t 1800
+
+echo Releasing static IP...
+netsh interface ipv4 set address name="Ethernet" dhcp
+
+echo DHCP enabled
+echo Press any key to continue...
+
+pause > nul
+
+exit

@@ -1,0 +1,7 @@
+1. Download the ISO File.
+2. Move the file to the datastore. Record the datastore name
+3. Execute the below command to upgrade/update the patch
+
+esxcli software vib update -d "/vmfs/volumes/Datastore/DirectoryName/PatchName.zip"
+
+4. Manual reboot once the patch gets added to this host command is reboot

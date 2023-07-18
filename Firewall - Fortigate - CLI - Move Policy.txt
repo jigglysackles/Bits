@@ -1,0 +1,12 @@
+Using policyID (Not Seq#) use the following, specifying whether you want the moving policy to appear before or after the policy you want it next to. 
+
+config firewall policy
+move <policyid> <before/after> <policy id>
+
+
+
+
+e.g. 
+Move 137 after 155
+
+This will move policy with the ID of 137 to come right after policy with the ID of 155 no matter what sequence it is. To see the policy ID you may have to add it to the columns, it will just be called ID in the listing.

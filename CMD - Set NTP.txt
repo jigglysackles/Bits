@@ -1,0 +1,38 @@
+@echo on
+REM Commands for setting a server to sync with NTP.
+
+w32tm /unregister
+net stop w32time
+w32tm /register
+net start w32time
+net stop w32time
+w32tm /config /syncfromflags:manual /manualpeerlist:"0.us.pool.ntp.org,1.us.pool.ntp.org,2.us.pool.ntp.org,3.us.pool.ntp.org"
+net start w32time
+w32tm /config /update
+w32tm /resync /rediscover
+
+
+REM Check on Status
+REM w32tm /query /source
+REM w32tm /query /configuration
+
+REM This will set the pool list in the GPO for the PDC
+0.us.pool.ntp.org,0x1 1.us.pool.ntp.org,0x1 2.us.pool.ntp.org,0x1 3.us.pool.ntp.org,0x1
+
+REM    0x1 — SpecialInterval, use of a special polling interval;
+REM    0x2 — UseAsFallbackOnly mode;
+REM    0x4 — SymmetricActive, symmetric active mode;
+REM    0x8 — Client, send request in client mode.
+
+
+For PDC
+
+w32tm /unregister
+net stop w32time
+w32tm /register
+net start w32time
+net stop w32time
+w32tm /config /syncfromflags:manual /manualpeerlist:"0.us.pool.ntp.org,0x1 1.us.pool.ntp.org,0x1 2.us.pool.ntp.org,0x1 3.us.pool.ntp.org,0x1"
+net start w32time
+w32tm /config /update
+w32tm /resync /rediscover

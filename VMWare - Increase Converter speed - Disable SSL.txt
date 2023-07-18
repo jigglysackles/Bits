@@ -1,0 +1,26 @@
+Disable SSL encryption of network traffic for converter speed boost.
+
+https://kb.vmware.com/articleview?docid=2020517
+
+
+Purpose
+By default, VMware vCenter Converter Standalone 5.x and 6.0 default the converter worker encrypts the data stream using SSL. Encrypting the traffic increases security, but it can decrease performance.
+
+This article provides steps to disable SSL encryption in VMware vCenter Converter Standalone 5.x and 6.0.
+Resolution
+
+
+
+To disable SSL encryption:
+
+    Take a backup of the converter-worker.xml file. By default, this file is located at:
+
+        Windows 7/Server 2008 and Later – C:\ProgramData\VMware\VMware vCenter Converter Standalone
+        Window Vista, XP and 2003 Server - %ALLUSERSPROFILE%\VMware\VMware vCenter Converter Standalone
+        In older Windows versions – %ALLUSERSPROFILE%\Application Data\VMware\VMware vCenter Converter Standalone
+
+    Open the converter-worker.xml file using a text editor.
+    Locate the tag pair <useSsl></useSsl>. It is located inside the <nfc> tag and has a value of true.
+    Change the value to false.
+    Save and close the file.
+    Restart the VMware vCenter Converter Standalone Worker service on the machine.

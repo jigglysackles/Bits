@@ -1,0 +1,4 @@
+Add user to local group
+
+net localgroup group_name UserLoginName /add
+

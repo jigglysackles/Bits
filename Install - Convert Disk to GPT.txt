@@ -1,0 +1,56 @@
+Windows 7 GPT
+To manually wipe a drive and convert it to GPT:
+
+    Turn off the PC, and put in the Windows installation DVD or USB key.
+
+    Boot the PC to the DVD or USB key in UEFI mode. For more info, see Boot to UEFI Mode or Legacy BIOS mode.
+
+    From inside Windows Setup, press Shift+F10 to open a command prompt window.
+
+    Open the diskpart tool:
+
+    diskpart
+
+    Identify the drive to reformat:
+
+    list disk
+
+    Select the drive, and reformat it:
+
+    select disk <disk number>
+    clean
+    convert gpt
+    exit
+
+    Close the command prompt window.
+
+    Continue the Windows Setup installation.
+
+    When choosing an installation type, select Custom. The drive will appear as a single area of unallocated space.
+
+    Select the unallocated space and click Next. Windows begins the installation.
+
+
+
+
+
+
+
+
+"Windows setup could not configure to run on this computer's hardware" error during Windows 7 or Windows 10 installation
+
+This article provides information on the error "Windows setup could not configure to run on this computer's hardware" during a Windows 7 or Windows 10 installation.
+Windows setup error during installation of Windows 7 or Windows 10
+
+When performing a full install or re-install of Windows 7 or Windows 10, you may receive the error "Windows setup could not configure to run on this computer's hardware" right after or during the "Completing installation" stage of the process. The installation process will not continue past the error. If you restart the computer, the install process will arrive back at the same error with no further progress.
+Manually run msoobe.exe to finish the install
+
+A possible resolution to this issue is to manually run the msoobe.exe program to allow the install to complete. Follow the steps below to manually run the msoobe.exe program:
+
+Windows 7:
+
+    At the error screen, press Shift+F10 to open a command prompt.
+    Type cd \ and press Enter.
+    Type cd c:\windows\system32\oobe and press Enter.
+    Type msoobe and press Enter. The installation process should now automatically continue.
+    Remove the installation media and the system should finish the installation and boot into Windows.

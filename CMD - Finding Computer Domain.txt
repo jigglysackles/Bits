@@ -1,0 +1,10 @@
+Ways to display the computer domain
+
+wmic computersystem get domain
+
+echo %userdomain%
+
+systeminfo | findstr /B /C:"Domain"
+
+
+"Note that the value in %USERDOMAIN% may not be the same as the one returned by systeminfo command. %USERDOMAIN% gives the domain name the user account belongs to, it could be different from the domain of the computer. Also, this may give you the NetBios name of the computer, not DNS/FQDN name."

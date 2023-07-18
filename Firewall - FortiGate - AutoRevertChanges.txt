@@ -1,0 +1,51 @@
+How-to: Automatically revert a config on a FortiGate
+There's nothing worse than remotely configuring a firewall and then loosing access once you've made your changes. Having a failsafe mechanism in place to revert to a previous config automatically will help you minimise potential issues and save you alot of stress! Luckily the FortiGate's give you a few options on how to save your running config which we'll discuss below.
+
+We'll go through each of the three options available. Each one is configured via the CLI.
+Automatic
+Manual
+Revert
+
+1. Automatic
+This is the default setting. The FortiGate will automatically save it's running config to the start-up config every time you make a change by typing 'end' in the CLI or clicking Ok/Apply in the GUI.
+
+config system global
+set cfg-save automatic
+end
+
+2. Manual
+In Manual mode, your changes will come into effect immediately (saved to the running config) but will be lost on a reboot unless a special save command is given (the running config will then be saved to the startup config).
+
+config system global
+set cfg-save manual
+end
+
+To save your changes to the startup config use the following command:
+
+execute cfg save
+
+3. Revert
+Revert mode will start a countdown timer as soon as you've made a change. If you don't save the config before the countdown timer has ended then the unit will automatically reboot and load the startup config (ie: all your changes will be lost).
+
+This is perfect if you're doing remote administration. If you make a change that locks you out, just wait until the timer has restarted then the firewall will reboot with your previous config.
+
+config system global
+set cfg-save revert
+set cfg-revert-timeout 300
+end
+
+The cfg-revert-timeout variable is the countdown timer in seconds. The default is 600 seconds (10 minutes).
+
+To save your changes to the startup config use the following command:
+
+execute cfg save
+
+One word of warning: You will not see any countdown timers via SSH/Telnet or the WebGUI. You can only see these timers if you've connected to the device via console. The countdown starts warning you from 10 seconds, so you need to be quick!
+
+
+
+The safest thing is to set the timer to a reasonable amount that will give you enough time to make changes and test without having to save the config every 30 seconds.
+
+If you make several changes and are not happy with them you can use the following command to reload the startup config:
+
+execute cfg reload

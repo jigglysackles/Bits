@@ -1,0 +1,2 @@
+copy "C:\Temp\DKHobgoblin.otf" "C:\Windows\System32\Fonts"
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "DK Hobgoblin (OpenType)" /t REG_SZ /d DKHobgoblin.otf /f

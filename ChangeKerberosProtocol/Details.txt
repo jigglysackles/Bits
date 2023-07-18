@@ -1,0 +1,3 @@
+KBR5KDC NOSUPP error when working between modern windows server versions and server 2003. 
+Ended up being that the 2003 FS didn't support anything above AES128/256 so we had to set all accounts to allow them to use the lower standard encryption.
+This was the resulting script

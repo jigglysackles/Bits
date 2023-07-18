@@ -1,0 +1,34 @@
+Custom Vipre Policy for ArcGIS
+
+Gary is ECG-0127, Matt Moore will be the other main person on this policy.
+
+C:\Program Files\ArcGIS
+C:\Program Files\Autodesk
+C:\Program Files (x86)\ArcGIS
+C:\Program Files (x86)\ArcGIS Viewer for Flex
+C:\Program Files (x86)\AutoCAD Civil 3D Land Desktop Companion 2009
+C:\Program Files (x86)\AutoCAD Raster Design 2009
+C:\Program Files (x86)\Autodesk
+C:\Program Files (x86)\Autodesk AutoCAD Civil 3D 2014
+
+
+Exclude multiple extensions from active protection
+gdb
+mxd
+sde
+lyr
+mdb
+gdbindexes
+gdbtable
+gdbtablx
+atx
+spx
+tbx
+py *maybe, this is python scripts
+dbf
+shp
+shx
+aux
+sdw
+sid
+prj

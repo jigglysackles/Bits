@@ -1,0 +1,70 @@
+GStep 1
+
+Enable SSH on the Synology and log in with your admin account, then type:
+
+sudo -i
+
+and type in your password. Now you should have root access to your Synology.
+
+ 
+
+Step 2
+
+Navigate to the folder where the drive list is stored.
+
+cd /var/lib/disk-compatibility
+
+Now if you list the directory you should see some DB files named after your model.
+
+ 
+
+Step 3
+
+We want to edit *_host.db and *_host.db.new and add your drive. In our case we had to add this line to the DB rs2821rp+_host.db and rs2821rp+_host.db.new (Can be done with VIM editor):
+
+{"model":"WD102KRYZ","firmware":"01.01H01","rec_intvl”:[1]},
+
+Some drives in that file don't have a firmware defined, so for you, you could try to copy that entry and add your model number of the drive. Another option is to look in the DB for the expansion unit for your drive, we found our config there. Just make sure "rec_intvl" is set to 1 if you copy the entry. Ours was standard 3 and that didn't work.
+
+ 
+
+Save and quit both files with :wq and then reboot the NAS, if everything is done correctly the NAS should say the disk status is normal. 
+
+Junk I was working with below.
+Synology RS2421RP+
+% grep -l ST16000NM001G-2KK103 *
+
+wdc wdc WUH721818ALE6L4
+Firmware PCGNW680
+% grep -l WUH721818ALE6L4 *
+{"model":"WUH721818ALE6L4","firmware":"PCGNW680","rec_intvl”:[1]},
+
+Seagate ST18000NM000J-2TV103
+Firmware SN02
+% grep -l ST18000NM000J-2TV103 *
+{"model":"ST18000NM000J-2TV103","firmware":"SN02","rec_intvl”:[1]},
+
+
+~~~
+ We also had to update the rs3621xs+_host_v7.db file to make this work.
+
+Also used sudo smartctl -i /dev/sdc to get the exact model and formware.
+
+ 
+
+Here are the commands
+
+edited these files.
+
+sudo vim rs3621xs+_host.db
+sudo vim rs3621xs+_host.db.new
+
+{"model":"WD181KFGX-68AFPN0","firmware":"83.00A83","rec_intvl”:[1]},
+
+ 
+
+sudo vim rs3621xs+_host_v7.db
+
+"WD181KFGX-68AFPN0":{"83.00A83":{"compatibility_interval":[{"compatibility":"support"}]},"default":{"compatibility_interval":[{"compatibility":"support"}]}}
+
+  
